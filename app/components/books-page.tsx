@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@headlessui/react";
 import BookCard from "./book-card";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { addBook, selectBooksList } from "@/lib/features/books/booksSlice";
+import { addBook, deleteBook, selectBooksList } from "@/lib/features/books/booksSlice";
 import BookActionModal from "./book-action-modal";
 import BookForm from "./book-form";
 
@@ -36,7 +36,7 @@ function BooksPage() {
                     key={book.id}
                     book={book}
                     onClick={() => { }}
-                    onDelete={() => { }}
+                    onDelete={() => dispatch(deleteBook(book))}
                   />
                 ))}
               </ul>

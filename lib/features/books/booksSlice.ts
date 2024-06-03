@@ -23,11 +23,18 @@ export const booksSlice = createSlice({
   reducers: {
     addBook: (state, action: PayloadAction<Book>) => {
       state.list.push(action.payload);
-    }
+    },
+    deleteBook: (state, action: PayloadAction<Book>) => {
+      const index = state.list.findIndex(books => books.id === action.payload.id);
+
+      if (index !== -1) {
+        state.list.splice(index, 1);
+      }
+    },
   }
 });
 
-export const { addBook } = booksSlice.actions;
+export const { addBook, deleteBook } = booksSlice.actions;
 
 export const selectBooksList = (state: RootState) => state.books.list;
 
