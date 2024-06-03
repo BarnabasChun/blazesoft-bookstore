@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form';
 import InputField from "@/components/input-field";
 import clsx from 'clsx';
 
+type BookFormData = Omit<Book, "id">;
 export interface BookFormProps {
   title: string;
-  onSubmit(formData: Book): void;
+  onSubmit(formData: BookFormData): void;
 }
 
 function BookForm({ title, onSubmit }: BookFormProps) {
-  const { register, handleSubmit, formState, reset } = useForm<Book>();
+  const { register, handleSubmit, formState, reset } = useForm<BookFormData>();
   const { errors } = formState;
 
   useEffect(() => {
