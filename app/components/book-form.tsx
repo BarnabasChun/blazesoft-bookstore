@@ -10,10 +10,13 @@ type BookFormData = Omit<Book, "id">;
 export interface BookFormProps {
   title: string;
   onSubmit(formData: BookFormData): void;
+  bookToEdit?: Book | null;
 }
 
-function BookForm({ title, onSubmit }: BookFormProps) {
-  const { register, handleSubmit, formState, reset } = useForm<BookFormData>();
+function BookForm({ title, onSubmit, bookToEdit }: BookFormProps) {
+  const { register, handleSubmit, formState, reset } = useForm<BookFormData>({
+    defaultValues: bookToEdit ?? undefined
+  });
   const { errors } = formState;
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@headlessui/react";
 import BookCard from "./book-card";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { addBook, deleteBook, selectBooksList } from "@/lib/features/books/booksSlice";
+import { Book, addBook, deleteBook, editBook, selectBooksList } from "@/lib/features/books/booksSlice";
 import BookActionModal from "./book-action-modal";
 import BookForm from "./book-form";
 
@@ -12,8 +12,11 @@ function BooksPage() {
   const dispatch = useAppDispatch();
 
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState<Book | null>(null);
+  const isEditBookModalOpen = Boolean(bookToEdit);
 
   const closeAddBookModal = () => setIsAddBookModalOpen(false);
+  const closeEditBookModal = () => setBookToEdit(null);
 
   return (
     <main className="min-h-screen p-8">
@@ -35,7 +38,7 @@ function BooksPage() {
                   <BookCard
                     key={book.id}
                     book={book}
-                    onClick={() => { }}
+                    onClick={() => setBookToEdit(book)}
                     onDelete={() => dispatch(deleteBook(book))}
                   />
                 ))}
@@ -55,6 +58,21 @@ function BooksPage() {
             onSubmit={(book) => {
               dispatch(addBook({ ...book, id: new Date().getTime() }));
               closeAddBookModal();
+            }}
+          />
+        }
+      />
+
+      <BookActionModal
+        isOpen={isEditBookModalOpen}
+        onClose={closeEditBookModal}
+        bookForm={
+          <BookForm
+            bookToEdit={bookToEdit}
+            title={`Editing ${bookToEdit?.name}`}
+            onSubmit={(book) => {
+              dispatch(editBook({ ...book, id: bookToEdit?.id! }));
+              closeEditBookModal();
             }}
           />
         }

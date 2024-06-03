@@ -31,10 +31,17 @@ export const booksSlice = createSlice({
         state.list.splice(index, 1);
       }
     },
+    editBook: (state, action: PayloadAction<Book>) => {
+      const index = state.list.findIndex(books => books.id === action.payload.id);
+
+      if (index !== -1) {
+        state.list[index] = action.payload;
+      }
+    },
   }
 });
 
-export const { addBook, deleteBook } = booksSlice.actions;
+export const { addBook, deleteBook, editBook } = booksSlice.actions;
 
 export const selectBooksList = (state: RootState) => state.books.list;
 
