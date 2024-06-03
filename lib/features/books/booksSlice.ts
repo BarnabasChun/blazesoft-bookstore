@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 
-interface Book {
+export interface Book {
   id: number;
   name: string;
   price: number;
