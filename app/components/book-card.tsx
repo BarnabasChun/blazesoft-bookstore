@@ -10,7 +10,7 @@ export interface BookCard {
 function BookCard({ book, onClick, onDelete }: BookCard) {
   return (
     <li
-      className="rounded shadow-lg bg-white text-left px-6 py-4"
+      className="rounded shadow-lg bg-white text-left px-6 py-4 cursor-pointer"
       aria-label={`View details about ${book.name}`}
       onClick={onClick}
     >
